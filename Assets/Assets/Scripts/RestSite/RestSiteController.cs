@@ -12,6 +12,7 @@ public class RestSiteController : MonoBehaviour
         if (!healthIncreased)
         {
             PlayerPrefs.SetFloat("playerHealth", PlayerPrefs.GetFloat("playerHealth") * 1.3f);
+            healthIncreased = true;
             SceneRouter.GoToScene(SceneType.Map);
         }
     }   
