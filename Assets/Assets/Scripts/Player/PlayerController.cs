@@ -32,22 +32,11 @@ public class PlayerController : CharacterBaseClass
     // Start is called before the first frame update
     void Start()
     {
-        float lastHealth = PlayerPrefs.GetFloat("playerHealth");
-        if (lastHealth <= 0)
-        {
-            currentHealth = Constants.PlayerConstants.initialFullHealth;
-        }else
-        {
-            currentHealth = lastHealth;
-        }
 
         coin = 0;
 
         Dictionary<string, float> playerInfoDict = PlayerPrefsController.GetPlayerInfo();
-        if (playerInfoDict["health"] == 0)
-        {
-            playerInfoDict["health"] = Constants.PlayerConstants.initialFullHealth;
-        }
+        Debug.Log("player controller" + playerInfoDict["health"]);
 
         this.fullHealth = Constants.PlayerConstants.initialFullHealth;
         this.currentHealth = playerInfoDict["health"];

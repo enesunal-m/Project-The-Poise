@@ -7,7 +7,9 @@ public static class PlayerPrefsController
 
     public static void SavePlayerInfo()
     {
+        Debug.Log("save player info" + PlayerController.Instance.currentHealth);
         PlayerPrefs.SetFloat("playerHealth", GameManager.Instance.playerController.currentHealth);
+        PlayerPrefs.SetFloat("coin", PlayerController.Instance.coin);
     }
 
     public static void SaveGlobalPrefs()

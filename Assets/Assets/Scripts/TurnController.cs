@@ -43,8 +43,6 @@ public class TurnController : MonoBehaviour
         string enemyType = PlayerPrefs.GetString("EnemyType");
 
         startFight(enemyTypeList[enemyType], enemyTypeTierList[enemyType].TakeRandom(1).First(), 1);
-        PlayerPrefsController.SavePlayerInfo();
-        PlayerPrefsController.SaveGlobalPrefs();
 
         /*List<SceneType> sceneTypes = new List<SceneType>() { SceneType.RestSite, SceneType.Shop };
         SceneType nextScene = sceneTypes.TakeRandom(1).First();

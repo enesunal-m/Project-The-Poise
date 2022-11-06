@@ -38,7 +38,6 @@ public class MapLineGenerator : MonoBehaviour
 
     private void Start()
     {
-
         if (PlayerPrefs.GetInt("mapGenerated") < 1)//will add 1 at the end of the fight
         {
             Transform parentObject = parent.GetComponent<Transform>();

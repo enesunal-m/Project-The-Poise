@@ -107,7 +107,6 @@ public class GameManager : MonoBehaviour
         using (File.Create(Application.streamingAssetsPath + Constants.URLConstants.cardTempDatabaseJsonBaseUrl)) ;
 
         PlayerPrefs.SetInt("level", 0);
-        PlayerPrefs.SetFloat("player:Health", 100);
     }
 
     public void initalizeEnemyList(List<GameObject> _enemyList)
