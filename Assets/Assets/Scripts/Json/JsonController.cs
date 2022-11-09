@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using System.Linq;
+using static UnityEditor.Progress;
 
 public static class JsonController
 {
@@ -29,7 +30,12 @@ public static class JsonController
     public static List<CardDatabaseStructure.ICardInfoInterface> readCardJsonTempWithPath(string path)
     {
         StreamReader sw = new StreamReader(Application.streamingAssetsPath + path);
-        List<CardDatabaseStructure.ICardInfoInterface> cardInfos = JsonConvert.DeserializeObject<List<CardDatabaseStructure.ICardInfoInterface>>(sw.ReadToEnd());
+        List<CardDatabaseStructure.ICardInfoInterface> cardInfos = new List<CardDatabaseStructure.ICardInfoInterface>();
+        if (sw.ReadToEnd().Length == 0)
+        {
+            return cardInfos;
+        }
+        cardInfos = JsonConvert.DeserializeObject<List<CardDatabaseStructure.ICardInfoInterface>>(sw.ReadToEnd());
         sw.Close();
 
         return cardInfos;
@@ -53,5 +59,20 @@ public static class JsonController
         BuffDebuffDatabaseStructure.Root jsonFile = JsonConvert.DeserializeObject<BuffDebuffDatabaseStructure.Root>(jsonString);
         return jsonFile;
 
+    }
+
+    static bool IsTextFileEmpty(string fileName)
+    {
+        var info = new FileInfo(fileName);
+        if (info.Length == 0)
+            return true;
+
+        // only if your use case can involve files with 1 or a few bytes of content.
+        if (info.Length < 6)
+        {
+            var content = File.ReadAllText(fileName);
+            return content.Length == 0;
+        }
+        return false;
     }
 }

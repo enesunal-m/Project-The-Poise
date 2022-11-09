@@ -25,6 +25,7 @@ public class ShopMouseInteraction : MonoBehaviour, IPointerEnterHandler, IPointe
 
             shopManager.selectedCardsList.Add(shopManager.cardList.Where(card => card.id == cardObject.cardId).First());
             List<CardDatabaseStructure.ICardInfoInterface> lastCardDeck = JsonController.readCardJsonTempWithPath(Constants.URLConstants.cardTempDatabaseJsonBaseUrl);
+            Debug.Log(shopManager.selectedCardsList);
             lastCardDeck.AddRange(shopManager.selectedCardsList);
             JsonController.createCardJsonTempWithPath(Constants.URLConstants.cardTempDatabaseJsonBaseUrl, lastCardDeck);
 

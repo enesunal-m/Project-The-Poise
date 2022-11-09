@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor.Localization.Plugins.XLIFF.V20;
 using UnityEngine;
 using UnityEngine.Localization.Settings;
 using UnityEngine.SceneManagement;
@@ -107,6 +108,14 @@ public class TurnController : MonoBehaviour
 
             GameManager.Instance.playerController.shield = 0;
 
+            int liarValue = GameManager.Instance.transform.GetComponent<LiarMeterConroller>().liarValue;
+
+            Debug.Log("Liar Value" + liarValue);
+            if (60 <= liarValue && liarValue < 70)
+            {
+                LiarmeterEffects.Instance.LiarmeterEffect60("demonicAttack");
+            }
+
             GameManager.Instance.GetComponent<CardSpawner>().SpawnerStarter();
             GameManager.Instance.GetComponent<CardSpawner>().spawnOnce = true;
 
@@ -118,10 +127,6 @@ public class TurnController : MonoBehaviour
             EnemyController.Instance.decideEnemyIntention_all();
 
             //LiarmeterEffects
-            if (60 <= GameManager.Instance.transform.GetComponent<LiarMeterConroller>().liarValue)
-            {
-                LiarmeterEffects.Instance.LiarmeterEffect60("demonicAttack");
-            }
 
             foreach (var item in GameObject.FindGameObjectsWithTag("BuffEffect"))
             {
@@ -135,23 +140,20 @@ public class TurnController : MonoBehaviour
             // TODO
             EnemyController.Instance.applyDecidedIntentions_all();
             GameManager.Instance.GetComponent<CardSpawner>().spawnOnce = false;
+
             int liarValue = GameManager.Instance.transform.GetComponent<LiarMeterConroller>().liarValue;
-            if (liarValue <= 30 && 15 < liarValue)
-            {
-                
-                LiarmeterEffects.Instance.LiarmeterEffect70();
-            }
-            else if (70 <= liarValue && liarValue < 80)
+
+            if ((liarValue <= 30 && 15 < liarValue) || (70 <= liarValue && liarValue < 80))
             {
                 LiarmeterEffects.Instance.LiarmeterEffect70();
             }
-            else if ((GameManager.Instance.transform.GetComponent<LiarMeterConroller>().liarValue <= 15 || 85 <= GameManager.Instance.transform.GetComponent<LiarMeterConroller>().liarValue))
+            else if (liarValue <= 15 || 80 <= liarValue)
             {
                 LiarmeterEffects.Instance.LiarmeterEffect85();
             }
-            else
+            else if (liarValue < 60 && liarValue > 30)
             {
-                //LiarmeterEffects.Instance.ResetLiarmeterPenalty();
+                LiarmeterEffects.Instance.ResetLiarmeterPenalty();
             }
 
             Invoke("endTurn", waitTillEndTurn);
