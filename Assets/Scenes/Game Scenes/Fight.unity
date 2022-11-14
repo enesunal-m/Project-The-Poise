@@ -1039,7 +1039,7 @@ GameObject:
   - component: {fileID: 81480045}
   - component: {fileID: 81480044}
   m_Layer: 5
-  m_Name: DownButton
+  m_Name: Gen1Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1109,9 +1109,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1961943528}
+      - m_Target: {fileID: 1016558779}
         m_TargetAssemblyTypeName: CharacterSwitchController, Assembly-CSharp
-        m_MethodName: OnClickz
+        m_MethodName: GenOneButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2105,7 +2105,7 @@ GameObject:
   - component: {fileID: 243994006}
   - component: {fileID: 243994005}
   m_Layer: 5
-  m_Name: TopButton
+  m_Name: Gen2Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2175,9 +2175,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1961943528}
+      - m_Target: {fileID: 1016558779}
         m_TargetAssemblyTypeName: CharacterSwitchController, Assembly-CSharp
-        m_MethodName: OnClickz
+        m_MethodName: GenTwoButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3151,7 +3151,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 536753286}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1016558779}
+        m_TargetAssemblyTypeName: CharacterSwitchController, Assembly-CSharp
+        m_MethodName: GenOneButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &543850059
 GameObject:
   m_ObjectHideFlags: 0
@@ -3956,7 +3968,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 683446995}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1016558779}
+        m_TargetAssemblyTypeName: CharacterSwitchController, Assembly-CSharp
+        m_MethodName: GenFourButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &683446995
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4115,7 +4139,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 689306979}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1016558779}
+        m_TargetAssemblyTypeName: CharacterSwitchController, Assembly-CSharp
+        m_MethodName: GenTwoButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &692061608
 GameObject:
   m_ObjectHideFlags: 0
@@ -4604,7 +4640,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 712701753}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1016558779}
+        m_TargetAssemblyTypeName: CharacterSwitchController, Assembly-CSharp
+        m_MethodName: GenThreeButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &712701753
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4763,7 +4811,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 789789130}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1016558779}
+        m_TargetAssemblyTypeName: CharacterSwitchController, Assembly-CSharp
+        m_MethodName: GenTwoButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &793498435
 GameObject:
   m_ObjectHideFlags: 0
@@ -6212,6 +6272,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1016558778}
+  - component: {fileID: 1016558779}
   m_Layer: 5
   m_Name: CharacterSwitch
   m_TagString: Untagged
@@ -6242,6 +6303,35 @@ RectTransform:
   m_AnchoredPosition: {x: -713, y: 309}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1016558779
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1016558777}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7328b441eb66ff4091f6be7807d068d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  genTwoButtonOne: {fileID: 81480044}
+  genTwoButtonTwo: {fileID: 243994005}
+  genThreeButtonOne: {fileID: 536753289}
+  genThreeButtonTwo: {fileID: 689306981}
+  genThreeButtonThree: {fileID: 1055963145}
+  genFourButtonOne: {fileID: 1144199032}
+  genFourButtonTwo: {fileID: 789789132}
+  genFourButtonThree: {fileID: 712701752}
+  genFourButtonFour: {fileID: 683446994}
+  playerImage: {fileID: 711733820}
+  generationTwoDisk: {fileID: 1961943526}
+  generationThreeDisk: {fileID: 1135222919}
+  generationFourDisk: {fileID: 1445904293}
+  genOneVisual: {fileID: 21300000, guid: d2af27b024eb0784e9138fdceb0a5f8b, type: 3}
+  genTwoVisual: {fileID: 21300000, guid: 7ccd20badd9114141b7194b3a8a86711, type: 3}
+  genThreeVisual: {fileID: 21300000, guid: 1e23d58faff6ac64a8e4bad48ba3a1bf, type: 3}
+  genFourVisual: {fileID: 21300000, guid: 80088917eb67981499d8b3f38e08017c, type: 3}
 --- !u!1 &1044798891
 GameObject:
   m_ObjectHideFlags: 0
@@ -6670,7 +6760,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1055963146}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1016558779}
+        m_TargetAssemblyTypeName: CharacterSwitchController, Assembly-CSharp
+        m_MethodName: GenThreeButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1055963146
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6971,7 +7073,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1135222920}
-  - component: {fileID: 1135222921}
   - component: {fileID: 1135222923}
   - component: {fileID: 1135222922}
   m_Layer: 5
@@ -7004,23 +7105,6 @@ RectTransform:
   m_AnchoredPosition: {x: -0.00000017147, y: 0}
   m_SizeDelta: {x: 780, y: 788}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1135222921
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1135222919}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a7328b441eb66ff4091f6be7807d068d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  topButton: {fileID: 0}
-  downButton: {fileID: 0}
-  playerImage: {fileID: 711733820}
-  playerVisual: {fileID: 21300000, guid: e0bc5c0b0877c4442a2cfbd09cd19617, type: 3}
-  dogVisual: {fileID: 21300000, guid: d4ffcbe7f67bb0c40b3a2fd981688b78, type: 3}
 --- !u!114 &1135222922
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7358,7 +7442,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1144199029}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1016558779}
+        m_TargetAssemblyTypeName: CharacterSwitchController, Assembly-CSharp
+        m_MethodName: GenOneButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1181226487
 GameObject:
   m_ObjectHideFlags: 0
@@ -8399,7 +8495,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1445904294}
-  - component: {fileID: 1445904295}
   - component: {fileID: 1445904297}
   - component: {fileID: 1445904296}
   m_Layer: 5
@@ -8433,23 +8528,6 @@ RectTransform:
   m_AnchoredPosition: {x: -0.00000017147, y: 0}
   m_SizeDelta: {x: 780, y: 788}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1445904295
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1445904293}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a7328b441eb66ff4091f6be7807d068d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  topButton: {fileID: 0}
-  downButton: {fileID: 0}
-  playerImage: {fileID: 711733820}
-  playerVisual: {fileID: 21300000, guid: e0bc5c0b0877c4442a2cfbd09cd19617, type: 3}
-  dogVisual: {fileID: 21300000, guid: d4ffcbe7f67bb0c40b3a2fd981688b78, type: 3}
 --- !u!114 &1445904296
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10499,7 +10577,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1961943527}
-  - component: {fileID: 1961943528}
   - component: {fileID: 1961943530}
   - component: {fileID: 1961943529}
   m_Layer: 5
@@ -10508,7 +10585,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1961943527
 RectTransform:
   m_ObjectHideFlags: 0
@@ -10531,23 +10608,6 @@ RectTransform:
   m_AnchoredPosition: {x: -0.00000017147, y: 0}
   m_SizeDelta: {x: 780, y: 788}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1961943528
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1961943526}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a7328b441eb66ff4091f6be7807d068d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  topButton: {fileID: 243994005}
-  downButton: {fileID: 81480044}
-  playerImage: {fileID: 711733820}
-  playerVisual: {fileID: 21300000, guid: e0bc5c0b0877c4442a2cfbd09cd19617, type: 3}
-  dogVisual: {fileID: 21300000, guid: d4ffcbe7f67bb0c40b3a2fd981688b78, type: 3}
 --- !u!114 &1961943529
 MonoBehaviour:
   m_ObjectHideFlags: 0
