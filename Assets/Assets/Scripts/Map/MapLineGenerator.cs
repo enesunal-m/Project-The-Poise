@@ -14,7 +14,7 @@ public class MapLineGenerator : MonoBehaviour
     public List<Vector2> fullGrids;
     public GameObject node, parent;
     public GameObject lineRenderer;
-    public GameObject[,] nodeCollector = new GameObject[10, 7];
+    public GameObject[,] nodeCollector = new GameObject[15, 12];
     public List<Vector2> lineNameCollectorUpper = new List<Vector2>();
     public List<int> lineNameCollectorUpperX = new List<int>();
     public List<int> lineNameCollectorUpperY = new List<int>();
@@ -22,7 +22,6 @@ public class MapLineGenerator : MonoBehaviour
     public List<int> lineNameCollectorLowerX = new List<int>();
     public List<int> lineNameCollectorLowerY = new List<int>();
     public bool runStarted;//Becomes true when run starts
-    public int isGenerated;
     public List<int> firstRowIndexes = new List<int>();
     public List<int> firstRowIndexes_ = new List<int>();
     public List<Vector2> nodeIndexes = new List<Vector2>();
@@ -30,237 +29,159 @@ public class MapLineGenerator : MonoBehaviour
     public List<int> secondRandomHolder = new List<int>();
     public List<int> classificationRandomHolder = new List<int>();
 
-    public GameObject[,] extraNodes = new GameObject[10, 7];
-    int row = 10;
+    public GameObject[,] extraNodes = new GameObject[15, 12];
+    int row = 15;
+    int column = 12;
+
     int q, random, leb, hak;
     public int chances;
 
 
     private void Start()
     {
+        Transform parentObject = parent.GetComponent<Transform>();
 
-        if (PlayerPrefs.GetInt("mapGenerated") < 1)//will add 1 at the end of the fight
+        for (int i = 0; i < row; i++)
         {
-            Transform parentObject = parent.GetComponent<Transform>();
-
-            for (int i = 0; i < row; i++)
+            if (i == 0)
             {
-                if (i == 0)
+                q = 5;//Random.Range(3, 5);//how many nodes will be created at first row
+                for (int j = 0; j < q; j++)
                 {
-                    q = 4;//Random.Range(3, 5);//how many nodes will be created at first row
-                    for (int j = 0; j < q; j++)
+                    if (PlayerPrefs.GetInt("mapGenerated") < 1)
                     {
                         uniqueRandomList.Add(NewNumber());//unique random
                         firstRowIndexes.Add(uniqueRandomList[j]);//save file[0,newnumber]
-                        GameObject tempNode = Instantiate(node, parentObject);
-                        Grid.Move(tempNode, i, uniqueRandomList[j]);
-                        tempNode.name = (i + "x" + uniqueRandomList[j]);
-                        tempRandomList.Add(uniqueRandomList[j]);
-                        nodeCollector[0, uniqueRandomList[j]] = tempNode;
+                    }
+                    else
+                    {
+                        ReadListFromFile();
+                        uniqueRandomList.Add(firstRowIndexes[j]);
+                        leb = 0;
+                        hak = 0;
+                    }
+
+                    GameObject tempNode = Instantiate(node, parentObject);
+                    Grid.Move(tempNode, i, uniqueRandomList[j]);
+                    tempNode.name = (i + "x" + uniqueRandomList[j]);
+                    tempRandomList.Add(uniqueRandomList[j]);
+                    nodeCollector[0, uniqueRandomList[j]] = tempNode;
+                    if (PlayerPrefs.GetInt("mapGenerated") < 1)
+                    {
                         nodeCollector[0, uniqueRandomList[j]].GetComponent<Button>().interactable = true;
                     }
-                    uniqueRandomList.Clear();
-                }
-                else
-                {
 
-                    //%2==1 bu deðilse temprandomlist
-                    switch (i % 2)
-                    {
-                        case 1:
-                            foreach (int p in tempRandomList)
+                }
+                uniqueRandomList.Clear();
+            }
+            else
+            {
+                //%2==1 bu deðilse temprandomlist
+                switch (i % 2)
+                {
+                    case 1:
+                        foreach (int p in tempRandomList)
+                        {
+                            int temp = (int)p;
+                            if (PlayerPrefs.GetInt("mapGenerated") < 1)
                             {
-                                int temp = (int)p;
                                 random = Random.Range(0, 3);//0,temp=3
                                 randomHolder.Add(random);
-                                if (random == 0 && temp != 0)//left
-                                {
-                                    NodeCreator(i, p - 1, node, parentObject, uniqueRandomList, nodeCollector);
-                                    LineCreatorLeft(i, p, parentObject);
-
-                                }
-                                else if (random == 1 && temp != 6)//right
-                                {
-                                    NodeCreator(i, p + 1, node, parentObject, uniqueRandomList, nodeCollector);
-                                    LineCreatorRight(i, p, parentObject);
-                                }
-                                else//front
-                                {
-                                    NodeCreator(i, p, node, parentObject, uniqueRandomList, nodeCollector);
-                                    LineCreatorFront(i, p, parentObject);
-                                }
                             }
-                            tempRandomList.Clear();
-                            break;
-                        case 0:
-                            foreach (int p in uniqueRandomList)
+                            else
                             {
-                                int temp = (int)p;
-                                random = Random.Range(0, 3);//0,temp=3
-                                secondRandomHolder.Add(random);
-                                if (random == 0 && temp != 0)//left
-                                {
-                                    NodeCreator(i, p - 1, node, parentObject, tempRandomList, nodeCollector);
-                                    LineCreatorLeft(i, p, parentObject);
-
-                                }
-                                else if (random == 1 && temp != 6)//right
-                                {
-                                    NodeCreator(i, p + 1, node, parentObject, tempRandomList, nodeCollector);
-                                    LineCreatorRight(i, p, parentObject);
-
-                                }
-                                else//front
-                                {
-                                    NodeCreator(i, p, node, parentObject, tempRandomList, nodeCollector);
-                                    LineCreatorFront(i, p, parentObject);
-                                }
-                            }
-                            uniqueRandomList.Clear();
-                            break;
-
-                    }
-                }
-            }
-            NodeClassification(nodeCollector, extraNodes, images);
-
-
-
-            for (int i = 0; i < 10; i++)
-            {
-                for (int j = 0; j < 7; j++)
-                {
-                    if (nodeCollector[i, j])
-                    {
-                        nodeIndexes.Add(new Vector2(i, j));
-                    }
-                }
-            }
-
-            WriteListToFile();
-        }
-        else
-        {
-            ReadListFromFile();
-            leb = 0;
-            hak = 0;
-
-            Transform parentObject = parent.GetComponent<Transform>();
-
-            for (int i = 0; i < row; i++)
-            {
-                if (i == 0)
-                {
-                    q = 4;//Random.Range(3, 5);//how many nodes will be created at first row
-                    for (int j = 0; j < q; j++)
-                    {
-                        uniqueRandomList.Add(firstRowIndexes[j]);//save file[0,newnumber]
-                        GameObject tempNode = Instantiate(node, parentObject);
-                        Grid.Move(tempNode, i, uniqueRandomList[j]);
-                        tempNode.name = (i + "x" + uniqueRandomList[j]);
-                        tempRandomList.Add(uniqueRandomList[j]);
-                        nodeCollector[0, uniqueRandomList[j]] = tempNode;
-                    }
-                    uniqueRandomList.Clear();
-                }
-                else
-                {
-                    //%2==1 bu deðilse temprandomlist
-                    switch (i % 2)
-                    {
-                        case 1:
-                            foreach (int p in tempRandomList)
-                            {
-                                int temp = (int)p;
                                 random = randomHolder[leb];//0,temp=3
                                 leb++;
-                                if (random == 0 && temp != 0)//left
-                                {
-
-                                    NodeCreator(i, p - 1, node, parentObject, uniqueRandomList, nodeCollector);
-                                    LineCreatorLeft(i, p, parentObject);
-
-
-
-                                }
-                                else if (random == 1 && temp != 6)//right
-                                {
-
-                                    NodeCreator(i, p + 1, node, parentObject, uniqueRandomList, nodeCollector);
-                                    LineCreatorRight(i, p, parentObject);
-
-
-                                }
-                                else//front
-                                {
-                                    NodeCreator(i, p, node, parentObject, uniqueRandomList, nodeCollector);
-                                    LineCreatorFront(i, p, parentObject);
-
-                                    //Draw line from lower to upper
-                                }
-
-
-
                             }
-                            tempRandomList.Clear();
-                            break;
-                        case 0:
-                            foreach (int p in uniqueRandomList)
+
+                            if (random == 0 && temp != 0)//left
                             {
-                                int temp = (int)p;
-                                random = secondRandomHolder[hak];//0,temp=3
-                                hak++;
-                                if (random == 0 && temp != 0)//left
-                                {
-                                    NodeCreator(i, p - 1, node, parentObject, tempRandomList, nodeCollector);
-                                    LineCreatorLeft(i, p, parentObject);
-
-
-                                }
-                                else if (random == 1 && temp != 6)//right
-                                {
-                                    NodeCreator(i, p + 1, node, parentObject, tempRandomList, nodeCollector);
-                                    LineCreatorRight(i, p, parentObject);
-                                }
-                                else//front
-                                {
-
-
-                                    NodeCreator(i, p, node, parentObject, tempRandomList, nodeCollector);
-                                    LineCreatorFront(i, p, parentObject);
-
-                                }
+                                NodeCreator(i, p - 1, node, parentObject, uniqueRandomList, nodeCollector);
+                                LineCreatorLeft(i, p, parentObject);
 
                             }
-                            uniqueRandomList.Clear();
-                            break;
+                            else if (random == 1 && temp != column - 1)//right
+                            {
+                                NodeCreator(i, p + 1, node, parentObject, uniqueRandomList, nodeCollector);
+                                LineCreatorRight(i, p, parentObject);
+                            }
+                            else//front
+                            {
+                                NodeCreator(i, p, node, parentObject, uniqueRandomList, nodeCollector);
+                                LineCreatorFront(i, p, parentObject);
+                            }
+                        }
+                        tempRandomList.Clear();
+                        break;
+                    case 0:
+                        foreach (int p in uniqueRandomList)
+                        {
+                            int temp = (int)p;
+                            if (PlayerPrefs.GetInt("mapGenerated") < 1)
+                            {
+                                random = Random.Range(0, 3);//0,temp=3
+                                secondRandomHolder.Add(random);
+                            }
+                            else
+                            {
+                                random = secondRandomHolder[hak];
+                                hak++;
+                            }
 
-                    }
+                            if (random == 0 && temp != 0)//left
+                            {
+                                NodeCreator(i, p - 1, node, parentObject, tempRandomList, nodeCollector);
+                                LineCreatorLeft(i, p, parentObject);
+
+                            }
+                            else if (random == 1 && temp != column - 1)//right
+                            {
+                                NodeCreator(i, p + 1, node, parentObject, tempRandomList, nodeCollector);
+                                LineCreatorRight(i, p, parentObject);
+
+                            }
+                            else//front
+                            {
+                                NodeCreator(i, p, node, parentObject, tempRandomList, nodeCollector);
+                                LineCreatorFront(i, p, parentObject);
+                            }
+                        }
+                        uniqueRandomList.Clear();
+                        break;
 
                 }
-
             }
-
-            NodeClassification(nodeCollector, extraNodes, images);
-
-
+        }
+        NodeClassification(nodeCollector, extraNodes, images);
+        if (PlayerPrefs.GetInt("mapGenerated") >= 1)
+        {
             int tempX = PlayerPrefs.GetInt("tempX");
             int tempY = PlayerPrefs.GetInt("tempY");
-            //Debug.Log("first index : " + tempX + "second index:" + tempY);
             int count = lineNameCollectorLower.Count;
             for (int i = 0; i < count; i++)
             {
                 if (new Vector2(lineNameCollectorLower[i].x, lineNameCollectorLower[i].y) == new Vector2(tempX, tempY))
                 {
-                    //Debug.Log((int)lineNameCollectorUpper[i].x + "," + (int)lineNameCollectorUpper[i].y + " açýldý");//Doðru çalýþýyor
                     nodeCollector[(int)lineNameCollectorUpper[i].x, (int)lineNameCollectorUpper[i].y].GetComponent<Button>().interactable = true;
                 }
-
             }
-
-            isGenerated++;
-
         }
+
+
+
+        for (int i = 0; i < row; i++)
+        {
+            for (int j = 0; j < column; j++)
+            {
+                if (nodeCollector[i, j])
+                {
+                    nodeIndexes.Add(new Vector2(i, j));
+                }
+            }
+        }
+
+        WriteListToFile();
+
         if (PlayerPrefs.GetInt("mapGenerated") < 1)
         {
             int cameraPositionBottom = 0;
@@ -283,10 +204,10 @@ public class MapLineGenerator : MonoBehaviour
 
     private int NewNumber()
     {
-        int myNumber = Random.Range(0, 7);
+        int myNumber = Random.Range(0, column);
         while (uniqueRandomList.Contains(myNumber))
         {
-            myNumber = Random.Range(0, 7);
+            myNumber = Random.Range(0, column);
         }
         return myNumber;
 
@@ -340,27 +261,27 @@ public class MapLineGenerator : MonoBehaviour
     {
 
 
-        File.WriteAllLines(Application.dataPath + @"/Assets/Database/firstRowIndexes.txt", firstRowIndexes.Select(x => x.ToString()));
-        File.WriteAllLines(Application.dataPath + @"/Assets/Database/lineNameCollectorUpperX.txt", lineNameCollectorUpperX.Select(x => x.ToString()));
-        File.WriteAllLines(Application.dataPath + @"/Assets/Database/lineNameCollectorUpperY.txt", lineNameCollectorUpperY.Select(x => x.ToString()));
-        File.WriteAllLines(Application.dataPath + @"/Assets/Database/lineNameCollectorLowerX.txt", lineNameCollectorLowerX.Select(x => x.ToString()));
-        File.WriteAllLines(Application.dataPath + @"/Assets/Database/lineNameCollectorLowerY.txt", lineNameCollectorLowerY.Select(x => x.ToString()));
-        File.WriteAllLines(Application.dataPath + @"/Assets/Database/randomHolder.txt", randomHolder.Select(x => x.ToString()));
-        File.WriteAllLines(Application.dataPath + @"/Assets/Database/secondRandomHolder.txt", secondRandomHolder.Select(x => x.ToString()));
-        File.WriteAllLines(Application.dataPath + @"/Assets/Database/classificationRandomHolder.txt", classificationRandomHolder.Select(x => x.ToString()));
+        File.WriteAllLines(Application.streamingAssetsPath + "/firstRowIndexes.txt", firstRowIndexes.Select(x => x.ToString()));
+        File.WriteAllLines(Application.streamingAssetsPath + "/lineNameCollectorUpperX.txt", lineNameCollectorUpperX.Select(x => x.ToString()));
+        File.WriteAllLines(Application.streamingAssetsPath + "/lineNameCollectorUpperY.txt", lineNameCollectorUpperY.Select(x => x.ToString()));
+        File.WriteAllLines(Application.streamingAssetsPath + "/lineNameCollectorLowerX.txt", lineNameCollectorLowerX.Select(x => x.ToString()));
+        File.WriteAllLines(Application.streamingAssetsPath + "/lineNameCollectorLowerY.txt", lineNameCollectorLowerY.Select(x => x.ToString()));
+        File.WriteAllLines(Application.streamingAssetsPath + "/randomHolder.txt", randomHolder.Select(x => x.ToString()));
+        File.WriteAllLines(Application.streamingAssetsPath + "/secondRandomHolder.txt", secondRandomHolder.Select(x => x.ToString()));
+        File.WriteAllLines(Application.streamingAssetsPath + "/classificationRandomHolder.txt", classificationRandomHolder.Select(x => x.ToString()));
 
     }
 
     public void ReadListFromFile()
     {
-        firstRowIndexes = File.ReadLines(Application.dataPath + @"/Assets/Database/firstRowIndexes.txt").Select(x => int.Parse(x)).ToList();
-        lineNameCollectorUpperX = File.ReadLines(Application.dataPath + @"/Assets/Database/lineNameCollectorUpperX.txt").Select(x => int.Parse(x)).ToList();
-        lineNameCollectorUpperY = File.ReadLines(Application.dataPath + @"/Assets/Database/lineNameCollectorUpperY.txt").Select(x => int.Parse(x)).ToList();
-        lineNameCollectorLowerX = File.ReadLines(Application.dataPath + @"/Assets/Database/lineNameCollectorLowerX.txt").Select(x => int.Parse(x)).ToList();
-        lineNameCollectorLowerY = File.ReadLines(Application.dataPath + @"/Assets/Database/lineNameCollectorLowerY.txt").Select(x => int.Parse(x)).ToList();
-        randomHolder = File.ReadLines(Application.dataPath + @"/Assets/Database/randomHolder.txt").Select(x => int.Parse(x)).ToList();
-        secondRandomHolder = File.ReadLines(Application.dataPath + @"/Assets/Database/secondRandomHolder.txt").Select(x => int.Parse(x)).ToList();
-        classificationRandomHolder = File.ReadLines(Application.dataPath + @"/Assets/Database/classificationRandomHolder.txt").Select(x => int.Parse(x)).ToList();
+        firstRowIndexes = File.ReadLines(Application.streamingAssetsPath + "/firstRowIndexes.txt").Select(x => int.Parse(x)).ToList();
+        lineNameCollectorUpperX = File.ReadLines(Application.streamingAssetsPath + "/lineNameCollectorUpperX.txt").Select(x => int.Parse(x)).ToList();
+        lineNameCollectorUpperY = File.ReadLines(Application.streamingAssetsPath + "/lineNameCollectorUpperY.txt").Select(x => int.Parse(x)).ToList();
+        lineNameCollectorLowerX = File.ReadLines(Application.streamingAssetsPath + "/lineNameCollectorLowerX.txt").Select(x => int.Parse(x)).ToList();
+        lineNameCollectorLowerY = File.ReadLines(Application.streamingAssetsPath + "/lineNameCollectorLowerY.txt").Select(x => int.Parse(x)).ToList();
+        randomHolder = File.ReadLines(Application.streamingAssetsPath + "/randomHolder.txt").Select(x => int.Parse(x)).ToList();
+        secondRandomHolder = File.ReadLines(Application.streamingAssetsPath + "/secondRandomHolder.txt").Select(x => int.Parse(x)).ToList();
+        classificationRandomHolder = File.ReadLines(Application.streamingAssetsPath + "/classificationRandomHolder.txt").Select(x => int.Parse(x)).ToList();
 
         for (int i = 0; i < lineNameCollectorLowerX.Count; i++)
         {
@@ -378,7 +299,7 @@ public class MapLineGenerator : MonoBehaviour
     public int[,] NodeClassification(GameObject[,] nodes, GameObject[,] extraNodes, Sprite[] mapImages)
     {
         int tempType;
-        int[,] nodesType = new int[10, 7];
+        int[,] nodesType = new int[row, column];
         List<int> typesCounter = new List<int>();
         for (int i = 0; i < 4; i++)
         {
@@ -400,9 +321,9 @@ public class MapLineGenerator : MonoBehaviour
         // Boss(1) is static
         int typesCount;
         int k = 0;
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < row; i++)
         {
-            for (int j = 0; j < 7; j++)
+            for (int j = 0; j < column; j++)
             {
 
                 if (nodes[i, j] != null)
@@ -451,49 +372,6 @@ public class MapLineGenerator : MonoBehaviour
             }
         }
         k = 0;
-
-        for (int i = 0; i < 10; i++)
-        {
-            for (int j = 0; j < 7; j++)
-            {
-
-                if (extraNodes[i, j] != null)
-                {
-                    typesCount = typesCounter.Count;
-                    if (typesCount != 0)
-                    {
-                        tempType = RandomCreator(k);
-                        k++;
-                        typesCounter.Remove(tempType);
-                        nodesType[i, j] = tempType;
-                        switch (tempType)
-                        {
-                            case 1:
-                                extraNodes[i, j].tag = "Elite";//Elite
-                                break;
-                            case 2:
-                                extraNodes[i, j].tag = "Market";//Market
-                                break;
-                            case 3:
-                                extraNodes[i, j].tag = "Mystery";//Mystery
-                                break;
-                            case 4:
-                                extraNodes[i, j].tag = "RestSite";//RestSite
-                                break;
-                            case 5:
-                                extraNodes[i, j].tag = "Treasure";//Treasure
-                                break;
-
-                        }
-                    }
-                    else
-                    {
-                        nodesType[i, j] = 6;
-                        extraNodes[i, j].tag = "MinorEnemy"; ;
-                    }
-                }
-            }
-        }
 
         return nodesType;
     }

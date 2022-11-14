@@ -9,34 +9,51 @@ using UnityEngine.SceneManagement;
 
 namespace UnityEngine.EventSystems
 {
-    
+
     public class PositionHolder : MonoBehaviour
-    {   
+    {
         public string state;
-        public MapLineGenerator mapGenerator;
-        public GameObject[,] nodes = new GameObject[7,10];
         public Vector2 playerPosition;
-        List<string> strings = new List<string>();
-        List<Vector2> linesLower = new List<Vector2>();
-        List<Vector2> linesUpper = new List<Vector2>();
-        
+        bool digitController = true;
+        string tempxCollector, tempyCollector;
+
         public void OnClicked(Button button)
         {
             //scene will be changed due to its stance(minorenemy,shop,treassure)
-            int tempx = ToInt(button.name[0]);
-            int tempy = ToInt(button.name[2]);
-            
-            if (this.tag == "MinorEnemy")
+            foreach (char c in button.name)//15x21
+            {
+
+                if (digitController == true)
+                {
+                    if (c == 'x')
+                    {
+                        digitController = false;
+                        continue;
+                    }
+                    tempxCollector += c;
+                    Debug.Log(tempxCollector);
+
+                }
+                else
+                {
+                    tempyCollector += c;
+                }
+            }
+            int tempx = int.Parse(tempxCollector);
+            int tempy = int.Parse(tempyCollector);
+            Debug.Log(tempx + "x" + tempy);
+
+            if (CompareTag("MinorEnemy"))
             {
                 state = "Minor Enemy Scene";
 
-                PlayerPrefs.SetString("EnemyType","Normal");
+                PlayerPrefs.SetString("EnemyType", "Normal");
                 SceneRouter.GoToScene(SceneType.Fight);
 
-                //this.GetComponent<Image>().sprite = images[3];
+                //GetComponent<Image>().sprite = images[3];
                 //MinorEnemyScene
             }
-            else if (this.tag == "EliteScene")
+            else if (CompareTag("EliteScene"))
             {
                 state = "Elite Scene";
 
@@ -45,41 +62,41 @@ namespace UnityEngine.EventSystems
                 //Scene("MinorEnemyScene")
                 //EliteScene
             }
-            else if (tag == "Boss")
+            else if (CompareTag("Boss"))
             {
                 state = "Boss Scene";
 
                 PlayerPrefs.SetString("EnemyType", "Boss");
                 SceneRouter.GoToScene(SceneType.Fight);
             }
-            else if (this.tag == "Market")
+            else if (CompareTag("Market"))
             {
                 state = "Market";
                 SceneRouter.GoToScene(SceneType.Shop);
                 //Scene("MinorEnemyScene")
 
-                //this.GetComponent<Image>().sprite = images[4];
+                //GetComponent<Image>().sprite = images[4];
                 //print(nodeName[0] + "x" + nodeName[2] + state);
                 //Market
             }
-            else if (this.tag == "Mystery") 
+            else if (CompareTag("Mystery"))
             {
                 state = "Mystery";
                 //Scene("Mystery")
                 //Mystery
             }
-            else if (this.tag == "RestSite")
+            else if (CompareTag("RestSite"))
             {
                 state = "Rest Site";
                 SceneRouter.GoToScene(SceneType.RestSite);
                 //Scene("MinorEnemyScene")
 
-                //this.GetComponent<Image>().sprite = images[1];
+                //GetComponent<Image>().sprite = images[1];
                 //print(nodeName[0] + "x" + nodeName[2] + state);
 
                 //RestSite
             }
-            else if(this.tag == "Treasure")
+            else if (CompareTag("Treasure"))
             {
                 state = "Treasure";
 
@@ -92,11 +109,11 @@ namespace UnityEngine.EventSystems
 
         }
 
-        public int ToInt(char s)
-        {
-            return s-'0';
-            
-        }
+        //public int ToInt(string s)
+        //{
+        //    return s-'0';
+
+        //}
     }
 
 }
