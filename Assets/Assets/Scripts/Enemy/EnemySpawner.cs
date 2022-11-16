@@ -48,7 +48,7 @@ public class EnemySpawner : MonoBehaviour
                     break;
                 default:
                     break;
-            } // BURASI YAZILACAK
+            } // BURASI YAZILACAK ENES YAZ ŞURAYI ARTIJK
             GameObject instantiatedEnemy = Instantiate(enemy_, enemyLocations[i], Quaternion.identity);
             GameManager.Instance.enemyList.Add(instantiatedEnemy);
         }
@@ -65,9 +65,12 @@ public class EnemySpawner : MonoBehaviour
 
     public List<Vector3> generateEnemyLocations(int enemyCount)
     {
-        Vector3 baseEnemyLocation = Constants.LocationConstants.enemyBaseLocation;
+        
         List<Vector3> enemyLocationList = new List<Vector3>();
 
+        float alignmentSpace = GameManager.Instance.transform.GetComponent<FightSceneAligner>().distanceOnRight / (enemyCount + 1) - 3;
+
+        Vector3 baseEnemyLocation = new Vector3(alignmentSpace,-3,0);
         enemyLocationList.Add(baseEnemyLocation);
 
         // Pattern: 10px up, 10px right for first 4 enemies
@@ -80,7 +83,7 @@ public class EnemySpawner : MonoBehaviour
             {
                 // if enemyCount is equal to 4 or less than 4
                 case <3:
-                    enemyLocationList.Add(enemyLocationList.Last() + Constants.LocationConstants.rightUpDistanceVector);
+                    enemyLocationList.Add(enemyLocationList.Last() + new Vector3(alignmentSpace,0,0));
                     break;
                 // if enemyCount is equal to 7 or in between 5-7
                 case < 6:

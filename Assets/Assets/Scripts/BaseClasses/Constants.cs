@@ -42,7 +42,6 @@ public static class Constants
     public static class LocationConstants
     {
         public static Vector3 enemyBaseLocation => new Vector3(4, -3, 0);
-
         public static Vector3 rightUpDistanceVector => new Vector3(1.5f, 1, 0);
         public static Vector3 leftUpDistanceVector => new Vector3(-1.5f, 1, 0);
     }

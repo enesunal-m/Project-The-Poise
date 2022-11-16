@@ -14,12 +14,12 @@ public class TurnController : MonoBehaviour
     public int turnCount;
 
     public float waitTillEndTurn;
-
+    
     public GameObject enemy_;
     private GameObject[] cardsOnDeck;
 
     private bool justOnceForLiarmeter70, justOnceForLiarmeter85 = false;
-
+    [SerializeField] GameObject companionButtons; 
 
     // Start is called before the first frame update
     void Start()
@@ -29,13 +29,13 @@ public class TurnController : MonoBehaviour
         List<EnemyTier> enemyTierListElite = new List<EnemyTier>() { EnemyTier.Tier1, EnemyTier.Tier2 };
         List<EnemyTier> enemyTierListBoss = new List<EnemyTier>() { EnemyTier.Tier1 };
 
-        Dictionary<string, List<EnemyTier>> enemyTypeTierList = new Dictionary<string,List<EnemyTier>>() 
-        { 
-            { "Normal" , enemyTierListNormal }, 
+        Dictionary<string, List<EnemyTier>> enemyTypeTierList = new Dictionary<string, List<EnemyTier>>()
+        {
+            { "Normal" , enemyTierListNormal },
             { "Elite" , enemyTierListElite },
             { "Boss" , enemyTierListBoss }
         };
-        Dictionary<string, EnemyType> enemyTypeList = new Dictionary<string, EnemyType>() 
+        Dictionary<string, EnemyType> enemyTypeList = new Dictionary<string, EnemyType>()
         {
             { "Normal", EnemyType.Normal },
             { "Elite", EnemyType.Elite },
@@ -76,6 +76,7 @@ public class TurnController : MonoBehaviour
         if (!GameManager.Instance.isFightEnded)
         {
             PlayerPrefsController.SavePlayerInfo();
+            companionButtons.SetActive(false);
             GameObject[] cards = GameObject.FindGameObjectsWithTag("Card");
             GameObject[] lines = GameObject.FindGameObjectsWithTag("Line");
             foreach (var item in cards)
@@ -95,6 +96,20 @@ public class TurnController : MonoBehaviour
             }
             startNewTurn();
         }
+    }
+    public void companionTurn()
+    {
+        GameObject[] cards = GameObject.FindGameObjectsWithTag("Card");
+        GameObject[] lines = GameObject.FindGameObjectsWithTag("Line");
+        foreach (var item in cards)
+        {
+            Destroy(item.gameObject);
+        }
+        foreach (var item in lines)
+        {
+            Destroy(item.gameObject);
+        }
+        companionButtons.SetActive(true);
     }
 
     public void startNewTurn()
@@ -134,7 +149,8 @@ public class TurnController : MonoBehaviour
             }
 
             // GameManager.Instance.playerController.applyStateEffects();
-        } else if(GameManager.Instance.turnSide == Characters.Enemy)
+        }
+        else if (GameManager.Instance.turnSide == Characters.Enemy)
         {
             GameManager.Instance.GetComponent<CardSpawner>().HandDiscarder();
             // TODO
@@ -173,7 +189,7 @@ public class TurnController : MonoBehaviour
 
         SceneRouter.GoToScene(SceneType.Map);
     }
-    
+
     public void changeLanguage()
     {
         if (GameManager.Instance.gameLanguage == Language.tr)
@@ -194,7 +210,8 @@ public class TurnController : MonoBehaviour
         if (currentSide == Characters.Player)
         {
             return Characters.Enemy;
-        }else
+        }
+        else
         {
             return Characters.Player;
         }

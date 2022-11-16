@@ -1607,6 +1607,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animScaler: 0.1
+  duration: 0.7
 --- !u!1 &8556258306090593682
 GameObject:
   m_ObjectHideFlags: 0

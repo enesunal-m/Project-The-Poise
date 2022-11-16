@@ -23,16 +23,17 @@ public class PlayerController : CharacterBaseClass
     public Image frontHealthBar;
     public Image backHealthBar;
     private float lerpTimer;
-
+    [SerializeField] GameObject companion;
     public int coin;
-
-    [SerializeField] float animScaler;
     public int playerMana = Constants.PlayerConstants.initialMana;
 
     // Start is called before the first frame update
     void Start()
     {
+        float alignmentSpace = GameManager.Instance.GetComponent<FightSceneAligner>().distanceOnLeft / 3;
 
+        this.transform.position = new Vector3(-alignmentSpace, -1, 0);
+        Instantiate(companion, new Vector3(-2*alignmentSpace, -1, 0), Quaternion.identity);
         coin = 0;
 
         Dictionary<string, float> playerInfoDict = PlayerPrefsController.GetPlayerInfo();
@@ -45,7 +46,6 @@ public class PlayerController : CharacterBaseClass
         this.nextTurnDamageMultiplier = 1f;
         this._name = "YonJuuRoku";
         coin = (int)playerInfoDict["coin"];
-        ScaleAnimation();
     }
 
     // Update is called once per frame
@@ -73,20 +73,6 @@ public class PlayerController : CharacterBaseClass
         UpdateHealthUI();
     }
 
-    public void ScaleAnimation()
-    {
-        Vector3 originalScale = transform.localScale;
-        Vector3 scaleTo = new Vector3(transform.localScale.x, transform.localScale.y + animScaler, transform.localScale.z);
-        Vector3 moveTo = new Vector3(transform.position.x, transform.position.y + animScaler, transform.position.z);
-        transform.DOMove(moveTo, 0.7f)
-            .SetEase(Ease.OutSine)
-            .SetLoops(-1, LoopType.Yoyo);
-        transform.DOScale(scaleTo, 0.7f)
-            .SetEase(Ease.InOutSine)
-            .SetLoops(-1, LoopType.Yoyo);
-
-
-    }
     public void UpdateHealthUI()
     {
         float fillF = frontHealthBar.fillAmount;
