@@ -31,12 +31,14 @@ public static class JsonController
     {
         StreamReader sw = new StreamReader(Application.streamingAssetsPath + path);
         List<CardDatabaseStructure.ICardInfoInterface> cardInfos = new List<CardDatabaseStructure.ICardInfoInterface>();
-        if (sw.ReadToEnd().Length == 0)
+        String cardJson_ = sw.ReadToEnd();
+        sw.Close();
+        Debug.Log(cardJson_);
+        if (cardJson_.Length == 0)
         {
             return cardInfos;
         }
-        cardInfos = JsonConvert.DeserializeObject<List<CardDatabaseStructure.ICardInfoInterface>>(sw.ReadToEnd());
-        sw.Close();
+        cardInfos = JsonConvert.DeserializeObject<List<CardDatabaseStructure.ICardInfoInterface>>(cardJson_);
 
         return cardInfos;
     }
