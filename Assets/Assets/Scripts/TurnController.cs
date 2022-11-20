@@ -109,7 +109,7 @@ public class TurnController : MonoBehaviour
         {
             Destroy(item.gameObject);
         }
-        companionButtons.SetActive(true);
+        GameManager.Instance.GetComponent<CompanionCommands>().companionTurn = true;
     }
 
     public void startNewTurn()

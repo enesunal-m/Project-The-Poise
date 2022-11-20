@@ -68,7 +68,7 @@ public class EnemySpawner : MonoBehaviour
         
         List<Vector3> enemyLocationList = new List<Vector3>();
 
-        float alignmentSpace = GameManager.Instance.transform.GetComponent<FightSceneAligner>().distanceOnRight / (enemyCount + 1) - 3;
+        float alignmentSpace = GameManager.Instance.transform.GetComponent<FightSceneAligner>().distanceOnRight / (enemyCount + 1) + 2;
 
         Vector3 baseEnemyLocation = new Vector3(alignmentSpace,-3,0);
         enemyLocationList.Add(baseEnemyLocation);
