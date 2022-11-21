@@ -20,6 +20,12 @@ public static class CardDatabase
             card.cardTarget = CardTarget.Player;
             cardsList.Add(card);
         }
+        foreach (CardDatabaseStructure.ClosestEnemy card in cardDatabaseJson.closestEnemy)
+        {
+            card.description = HelperFunctions.descriptionBuilder(card);
+            card.cardTarget = CardTarget.ClosestEnemy;
+            cardsList.Add(card);
+        }
 
         return cardsList;
     }

@@ -184,6 +184,7 @@ public enum CardTarget
     SingleEnemy,
     Player,
     MultipleEnemies,
+    ClosestEnemy,
     All
 }
 

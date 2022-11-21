@@ -47,6 +47,7 @@ public static class CardDatabaseStructure
         public List<SingleEnemy> singleEnemy { get; set; }
         public List<Player> player { get; set; }
         public List<MultipleEnemies> mutlipleEnemies { get; set; }
+        public List<ClosestEnemy> closestEnemy {get; set; }
         public List<All> all { get; set; }
     }
 
@@ -55,6 +56,9 @@ public static class CardDatabaseStructure
     }
 
     public class MultipleEnemies : ICardInfoInterface
+    {
+    }
+    public class ClosestEnemy : ICardInfoInterface
     {
     }
 

@@ -27,20 +27,6 @@
             }
         },
         {
-            "id": "demonicAttack",
-            "name": "Demonic Attack",
-            "description": "Gives {damage} damage to the enemy. Increases liarmeter for {amount} points.",
-            "tier": "Tier1",
-            "types": [
-                "Attack"
-            ],
-            "cost": 2,
-            "attributes": {
-                "damage": 14,
-                "amount": 10
-            }
-        },
-        {
             "id": "gambler",
             "name": "Gambler",
             "description": "Gives random damage between {damageMin} - {damageMax} to the enemy. Increases liarmeter for {amount} points.",
@@ -66,6 +52,23 @@
             "cost": 2,
             "attributes": {
                 "damage": 20
+            }
+        }
+    ],
+    "closestEnemy": [
+        {
+            "id": "demonicAttack",
+            "name": "Demonic Attack",
+            "description": "Gives {damage} damage to the closest enemy. Increases liarmeter for {amount} points.",
+            "tier": "Tier1",
+            "types": [
+                "Attack"
+            ],
+            "cost": 2,
+            "attributes": {
+                "position": 0,
+                "damage": 14,
+                "amount": 10
             }
         }
     ],

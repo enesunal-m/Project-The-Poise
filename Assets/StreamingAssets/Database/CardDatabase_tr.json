@@ -27,20 +27,6 @@
             }
         },
         {
-            "id": "demonicAttack",
-            "name": "Şeytani Saldırı",
-            "description": "Hedefe {damage} hasar verir. Yalanmetreyi {amount} puan arttırır.",
-            "tier": "Tier1",
-            "types": [
-                "Attack"
-            ],
-            "cost": 2,
-            "attributes": {
-                "damage": 14,
-                "amount": 15
-            }
-        },
-        {
             "id": "gambler",
             "name": "Kumarbaz",
             "description": "{damageMin} ile {damageMax} arasında rastgele bir hasar verir. Yalanmetreyi {amount} puan arttırır.",
@@ -66,6 +52,23 @@
             "cost": 2,
             "attributes": {
                 "damage": 20
+            }
+        }
+    ],
+    "closestEnemy": [
+        {
+            "id": "demonicAttack",
+            "name": "Şeytani Saldırı",
+            "description": "En yakındaki hedefe {damage} hasar verir. Yalanmetreyi {amount} puan arttırır.",
+            "tier": "Tier1",
+            "types": [
+                "Attack"
+            ],
+            "cost": 2,
+            "attributes": {
+                "position": 0,
+                "damage": 14,
+                "amount": 15
             }
         }
     ],

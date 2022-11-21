@@ -53,7 +53,7 @@ public static class CardFunctions
         public override void run(List<Enemy> selectedEnemies, CardDatabaseStructure.ICardInfoInterface thisCard)
         {
             selectedEnemies[0].getDamage(thisCard.attributes.damage);
-            LiarMeterConroller.Instance.setLiarValue(thisCard.attributes.amount) ;
+            LiarMeterConroller.Instance.setLiarValue(thisCard.attributes.amount);
         }
     }
     public class Gambler : CardFunction

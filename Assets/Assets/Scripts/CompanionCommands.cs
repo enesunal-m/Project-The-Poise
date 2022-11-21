@@ -11,6 +11,8 @@ public class CompanionCommands : MonoBehaviour
     [SerializeField] TextMeshProUGUI[] buttons;
     public bool companionTurn = false;
 
+    private int attackDamage, shieldAmount, healAmount = 4;
+
     private void Update()
     {
         if (companionTurn)

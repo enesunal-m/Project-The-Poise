@@ -40,7 +40,8 @@ public class CardMouseInteraction : MonoBehaviour, IPointerEnterHandler, IPointe
                 this.GetComponent<RectTransform>().localScale = new Vector3(1.1f, 1.1f, 1);
                 transform.position = new Vector3(this.transform.position.x, this.transform.position.y + 15, this.transform.position.z);
                 this.GetComponent<Canvas>().sortingOrder += 100;
-            } else
+            }
+            else
             {
                 highlightedCard = this.gameObject;
                 this.GetComponent<RectTransform>().localScale = new Vector3(1.2f, 1.2f, 1);
@@ -48,7 +49,7 @@ public class CardMouseInteraction : MonoBehaviour, IPointerEnterHandler, IPointe
                 this.GetComponent<Canvas>().sortingOrder += 100;
             }
         }
-        
+
     }
 
     public void OnPointerExit(PointerEventData eventData)
@@ -59,9 +60,10 @@ public class CardMouseInteraction : MonoBehaviour, IPointerEnterHandler, IPointe
             {
                 highlightedCard = null;
                 this.GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
-                 this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y - 15, this.transform.position.z);
+                this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y - 15, this.transform.position.z);
                 this.GetComponent<Canvas>().sortingOrder -= 100;
-            }   else
+            }
+            else
             {
                 highlightedCard = null;
                 this.GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
@@ -69,7 +71,7 @@ public class CardMouseInteraction : MonoBehaviour, IPointerEnterHandler, IPointe
                 this.GetComponent<Canvas>().sortingOrder -= 100;
             }
         }
-        
+
     }
 
     public void OnPointerClick(PointerEventData eventData)
@@ -107,6 +109,13 @@ public class CardMouseInteraction : MonoBehaviour, IPointerEnterHandler, IPointe
     {
         if (GameManager.Instance.isCardSelected && !cardDisplay.isSelectionCard)
         {
+            if (GameManager.Instance.isAnyCardSelected && Input.GetMouseButtonDown(0) && !GameManager.Instance.isSelectedCardUsed)
+            {
+                Enemy selectedEnemy = GameManager.Instance.GetComponent<FightSceneAligner>().FindClosestEnemy().GetComponent<Enemy>();
+                CardManager.Instance.selectedEnemies.Add(selectedEnemy);
+                CardManager.Instance.UseSelectedCard(CardTarget.ClosestEnemy);
+                GameManager.Instance.isSelectedCardUsed = true;
+            }
             if (Input.GetMouseButtonDown(1))
             {
                 line = GameObject.FindGameObjectsWithTag("Line");
@@ -135,17 +144,5 @@ public class CardMouseInteraction : MonoBehaviour, IPointerEnterHandler, IPointe
         CardManager.Instance.selectedCard.transform.position = castingPlace.transform.position;
         GameManager.Instance.isCardSelected = true;
         GameManager.Instance.isAnyCardSelected = true;
-
-        if (Input.GetMouseButtonDown(0))
-        {
-            Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            Vector2 mousePos2D = new Vector2(mousePos.x, mousePos.y);
-            RaycastHit2D hit = Physics2D.Raycast(mousePos2D, Vector2.zero, ~IgnoreMe);
-
-            if (hit.collider != null && hit.transform.gameObject.tag == "Enemy")
-            {
-                Debug.Log("AB ENEMY ABBBB");
-            }
-        }
     }
 }

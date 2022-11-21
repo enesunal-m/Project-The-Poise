@@ -5,7 +5,7 @@ using System.Linq;
 public class CardManager : MonoBehaviour
 {
     public GameObject selectedCard;
-    public List<Enemy> selectedEnemies= new List<Enemy>();
+    public List<Enemy> selectedEnemies = new List<Enemy>();
 
     public GameObject effect;
     public GameObject attackEffect;
@@ -31,13 +31,13 @@ public class CardManager : MonoBehaviour
         if (selectedCard.GetComponent<CardDisplay>().cardTarget == CardTarget.Player && cardTarget == CardTarget.Player)
         {
             CardFunctions.cardFunctionDictionary[selectedCard.GetComponent<CardDisplay>().cardId].run(new List<Enemy>(), selectedCard.GetComponent<CardDisplay>().GetSelfCardInfo());
-            
+
             if (selectedCard.GetComponent<CardDisplay>().types.Contains("Buff"))
             {
                 var buffTemp = Instantiate(buffEffect);
                 buffTemp.transform.position = PlayerController.Instance.transform.position;
             }
-            if (selectedCard.GetComponent<CardDisplay>().cardId==("guard") || selectedCard.GetComponent<CardDisplay>().cardId==("holyShield"))
+            if (selectedCard.GetComponent<CardDisplay>().cardId == ("guard") || selectedCard.GetComponent<CardDisplay>().cardId == ("holyShield"))
             {
                 var shieldTemp = Instantiate(shieldEffect);
                 shieldTemp.transform.position = PlayerController.Instance.transform.position;
@@ -48,7 +48,7 @@ public class CardManager : MonoBehaviour
                 effectTemp.transform.position = PlayerController.Instance.transform.position;
             }
         }
-        else if (selectedCard.GetComponent<CardDisplay>().cardTarget == CardTarget.SingleEnemy && cardTarget == CardTarget.SingleEnemy )
+        else if (selectedCard.GetComponent<CardDisplay>().cardTarget == CardTarget.SingleEnemy && cardTarget == CardTarget.SingleEnemy)
         {
             CardFunctions.cardFunctionDictionary[selectedCard.GetComponent<CardDisplay>().cardId].
                 run(selectedEnemies, selectedCard.GetComponent<CardDisplay>().GetSelfCardInfo());
@@ -60,7 +60,22 @@ public class CardManager : MonoBehaviour
                     var att = Instantiate(attackEffect, item.transform);
                     att.transform.position = new Vector3(item.transform.position.x + 1.2f, item.transform.position.y + 1, item.transform.position.z);
                 }
-                
+
+            }
+        }
+        else if (selectedCard.GetComponent<CardDisplay>().cardTarget == CardTarget.ClosestEnemy && cardTarget == CardTarget.ClosestEnemy)
+        {
+            CardFunctions.cardFunctionDictionary[selectedCard.GetComponent<CardDisplay>().cardId].
+                run(selectedEnemies, selectedCard.GetComponent<CardDisplay>().GetSelfCardInfo());
+
+            if (selectedCard.GetComponent<CardDisplay>().cardId == "demonicAttack")
+            {
+                foreach (var item in selectedEnemies)
+                {
+                    var att = Instantiate(attackEffect, item.transform);
+                    att.transform.position = new Vector3(item.transform.position.x + 1.2f, item.transform.position.y + 1, item.transform.position.z);
+                }
+
             }
         }
         else
@@ -79,7 +94,7 @@ public class CardManager : MonoBehaviour
         GameManager.Instance.isCardSelected = false;
         GameManager.Instance.isAnyCardSelected = false;
         GameManager.Instance.isSelectedCardUsed = false;
-        
+
         selectedCard = null;
     }
     public void CheckDeck()
@@ -92,7 +107,7 @@ public class CardManager : MonoBehaviour
                 CardFunctions.customCardFunctionDictionary[cardInfo.id].run(new List<Enemy>(), cardInfo);
             }
         }
-        
+
     }
 
     public List<CardDatabaseStructure.ICardInfoInterface> getAllCards()
