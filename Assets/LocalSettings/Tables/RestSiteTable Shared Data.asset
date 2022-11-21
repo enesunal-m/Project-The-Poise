@@ -27,6 +27,14 @@ MonoBehaviour:
     m_Key: RestUpgradeText
     m_Metadata:
       m_Items: []
+  - m_Id: 26230507614748672
+    m_Key: UpgradeCancelButton
+    m_Metadata:
+      m_Items: []
+  - m_Id: 26230882719744000
+    m_Key: AcceptButton
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

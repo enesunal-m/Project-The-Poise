@@ -79,7 +79,8 @@ public class GameManager : MonoBehaviour
             cardsList = JsonController.readCardJsonTempWithPath(Constants.URLConstants.cardTempDatabaseJsonBaseUrl);
             Constants.CardConstants.deckCardCount = cardsList.Count;
             PlayerPrefs.SetInt("notStartOfRun", 0);
-        } else
+        }
+        else
         {
             cardDatabaseJson = LanguageManager.getCardDatabaseWithLanguage();
             cardsList = CardDatabase.initalizecardsList(cardDatabaseJson);
@@ -91,10 +92,13 @@ public class GameManager : MonoBehaviour
         buffDebuffDatabaseJson = JsonController.getBuffDebuffJsonWithPath(Constants.URLConstants.buffDebuffDatabaseJsonBaseUrl);
         buffDebuffList = BuffDebuffController.initalizeBuffDebuffList(buffDebuffDatabaseJson);
 
-        GameManager.Instance.gameObject.GetComponent<CardSelectorController>().generateCardsForSelector(3);
-        Instance.gameObject.GetComponent<DeckController>().BuildDeck(Constants.CardConstants.deckCardCount);
+        if (SceneManager.GetActiveScene().name == "Fight")
+        {
+            GameManager.Instance.gameObject.GetComponent<CardSelectorController>().generateCardsForSelector(3);
+            Instance.gameObject.GetComponent<DeckController>().BuildDeck(Constants.CardConstants.deckCardCount);
 
-        CardManager.Instance.CheckDeck();
+            CardManager.Instance.CheckDeck();
+        }
     }
 
     void Update()

@@ -23,6 +23,8 @@ TagManager:
   - ShopManager
   - Map
   - EndFightCanvas
+  - UpgradeSelectedCardPanel
+  - cardUpgradeController
   layers:
   - Default
   - TransparentFX
