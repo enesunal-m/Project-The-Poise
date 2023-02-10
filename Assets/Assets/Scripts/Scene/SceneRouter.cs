@@ -8,7 +8,9 @@ public static class SceneRouter
 {
     public static void GoToScene(SceneType sceneType)
     {
-        SceneManager.LoadScene(Constants.SceneConstants.sceneIndexes[sceneType]);
+        //SceneManager.LoadScene(Constants.SceneConstants.sceneIndexes[sceneType]);
+        LoadingData.sceneToLoad = Constants.SceneConstants.sceneIndexes[sceneType];
+        SceneManager.LoadSceneAsync(Constants.SceneConstants.sceneIndexes[SceneType.Loading]);
     }
 
     public static void GoToSceneWithString(string sceneTypeString)
@@ -17,6 +19,6 @@ public static class SceneRouter
 
         Enum.TryParse(sceneTypeString, out sceneType);
 
-        SceneManager.LoadScene(Constants.SceneConstants.sceneIndexes[sceneType]);
+        SceneManager.LoadSceneAsync(Constants.SceneConstants.sceneIndexes[sceneType]);
     }
 }

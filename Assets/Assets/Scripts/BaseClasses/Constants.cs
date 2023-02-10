@@ -62,6 +62,7 @@ public static class Constants
         public static int shopIndex = 3;
         public static int restSiteIndex = 4;
         public static int creditsIndex = 5;
+        public static int loadingIndex = 6;
         public static Dictionary<SceneType, int> sceneIndexes = new Dictionary<SceneType, int>()
         {
             { SceneType.MainMenu, mainIndex },
@@ -70,6 +71,7 @@ public static class Constants
             { SceneType.Shop, shopIndex},
             { SceneType.RestSite, restSiteIndex},
             {SceneType.Credits, creditsIndex },
+            {SceneType.Loading, loadingIndex}
         };
     }
 
@@ -228,7 +230,8 @@ public enum SceneType
     Fight,
     Shop,
     RestSite,
-    Credits
+    Credits,
+    Loading
 }
 
 // End of general game enums
