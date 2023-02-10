@@ -82,8 +82,8 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            cardDatabaseJson = LanguageManager.getCardDatabaseWithLanguage();
-            cardsList = CardDatabase.initalizecardsList(cardDatabaseJson);
+            cardDatabaseJson = LanguageManager.getCardDatabaseWithLanguage(false);
+            cardsList = CardDatabase.initalizecardsList(cardDatabaseJson, false);
         }
 
         enemyDatabaseJson = JsonController.getEnemyJsonWithPath(Constants.URLConstants.enemyDatabaseJsonBaseUrl);

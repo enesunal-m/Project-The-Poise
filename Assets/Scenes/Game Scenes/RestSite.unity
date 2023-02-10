@@ -461,7 +461,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 128160082}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 658020612}
+        m_TargetAssemblyTypeName: RestSiteController, Assembly-CSharp
+        m_MethodName: UpgradeSelectedCard
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &128160082
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -960,7 +972,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 310967568}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 658020612}
+        m_TargetAssemblyTypeName: RestSiteController, Assembly-CSharp
+        m_MethodName: CancelUpgrade
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &310967568
 MonoBehaviour:
   m_ObjectHideFlags: 0

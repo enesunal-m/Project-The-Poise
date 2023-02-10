@@ -12,6 +12,7 @@ public class CardUpgradeController : MonoBehaviour
     public RectTransform viewPortContent;
 
     public CardDatabaseStructure.ICardInfoInterface selectedCard;
+    public CardDatabaseStructure.ICardInfoInterface upgraded_selectedCard;
 
     public RectTransform currentCardPlace;
     public RectTransform upgradedCardPlace;
@@ -45,7 +46,8 @@ public class CardUpgradeController : MonoBehaviour
             spawnedCard.transform.parent = viewPortContent;
 
             spawnedCard.GetComponent<Canvas>().overrideSorting = false;
-            spawnedCard.SetActive(false);
+
+            ObjectPool.SharedInstance.ReturnToPool(spawnedCard);
 
             spawnedCardList.Add(spawnedCard);
         }

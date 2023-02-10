@@ -4,19 +4,19 @@ using UnityEngine;
 
 public static class CardDatabase
 {
-    public static List<CardDatabaseStructure.ICardInfoInterface> initalizecardsList(CardDatabaseStructure.Root cardDatabaseJson)
+    public static List<CardDatabaseStructure.ICardInfoInterface> initalizecardsList(CardDatabaseStructure.Root cardDatabaseJson, bool isUpgraded)
     {
         List<CardDatabaseStructure.ICardInfoInterface> cardsList = new List<CardDatabaseStructure.ICardInfoInterface>();
 
         foreach (CardDatabaseStructure.SingleEnemy card in cardDatabaseJson.singleEnemy)
         {
-            card.description = HelperFunctions.descriptionBuilder(card);
+            card.description = HelperFunctions.descriptionBuilder(card, isUpgraded);
             card.cardTarget = CardTarget.SingleEnemy;
             cardsList.Add(card);
         }
         foreach (CardDatabaseStructure.Player card in cardDatabaseJson.player)
         {
-            card.description = HelperFunctions.descriptionBuilder(card);
+            card.description = HelperFunctions.descriptionBuilder(card, isUpgraded);
             card.cardTarget = CardTarget.Player;
             cardsList.Add(card);
         }

@@ -16,6 +16,7 @@ public class LineController : MonoBehaviour
     {
         if (drawLine)
         {
+            // change to not use Instantiate
             currentLine = Instantiate(lineprefab, Vector3.zero, Quaternion.identity);
 
             drawLine = false;

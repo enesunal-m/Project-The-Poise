@@ -33,7 +33,7 @@ public static class HelperFunctions
         return default(T);
     }
 
-    public static string descriptionBuilder(CardDatabaseStructure.ICardInfoInterface card)
+    public static string descriptionBuilder(CardDatabaseStructure.ICardInfoInterface card, bool isUpgraded)
     {
         IEnumerable<int> variableLocationsInString = card.description.AllIndexesOf("{");
 
@@ -41,10 +41,19 @@ public static class HelperFunctions
 
         foreach (string attribute in attributes)
         {
-            if (!(attribute.Count(s => s == '{') >= 2 && attribute.Count(s => s == '{') != 0) )
+            if (!(attribute.Count(s => s == '{') >= 2 && attribute.Count(s => s == '{') != 0))
             {
                 string attribute_ = attribute.Substring(1, attribute.Length - 2);
-                card.description = card.description.Replace('{' + attribute_ + '}', GetPropertyValue(card.attributes, attribute_).ToString());
+                if (isUpgraded)
+                {
+                    card.description = card.description.Replace("{" + attribute_ + "}", "<color=red><b>" + GetPropertyValue(card.attributes, attribute_).ToString() + "</b></color>");
+
+                }
+                else
+                {
+                    card.description = card.description.Replace('{' + attribute_ + '}', GetPropertyValue(card.attributes, attribute_).ToString());
+
+                }
 
             }
         }

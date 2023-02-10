@@ -14,7 +14,7 @@ public class MainMenu : MonoBehaviour
 
     private void Start()
     {
-        if (PlayerPrefs.GetString("Language")== "tr")
+        if (PlayerPrefs.GetString("Language") == "tr")
         {
             LocalizationSettings.SelectedLocale = Locale.CreateLocale("tr-TR");
             trArrow.SetActive(true);
@@ -33,9 +33,10 @@ public class MainMenu : MonoBehaviour
     public void PlayGame()
     {
         PlayerPrefs.SetInt("notStartOfRun", 0);
+        PlayerPrefs.SetFloat("playerHealth", 100);
         SceneRouter.GoToScene(SceneType.Map);
     }
-    
+
     public void ExitGame() // quit function
     {
         Application.Quit();

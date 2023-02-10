@@ -40,7 +40,8 @@ public class CardMouseInteraction : MonoBehaviour, IPointerEnterHandler, IPointe
                 this.GetComponent<RectTransform>().localScale = new Vector3(1.1f, 1.1f, 1);
                 transform.position = new Vector3(this.transform.position.x, this.transform.position.y + 15, this.transform.position.z);
                 this.GetComponent<Canvas>().sortingOrder += 100;
-            } else
+            }
+            else
             {
                 highlightedCard = this.gameObject;
                 this.GetComponent<RectTransform>().localScale = new Vector3(1.2f, 1.2f, 1);
@@ -48,7 +49,7 @@ public class CardMouseInteraction : MonoBehaviour, IPointerEnterHandler, IPointe
                 this.GetComponent<Canvas>().sortingOrder += 100;
             }
         }
-        
+
     }
 
     public void OnPointerExit(PointerEventData eventData)
@@ -59,9 +60,10 @@ public class CardMouseInteraction : MonoBehaviour, IPointerEnterHandler, IPointe
             {
                 highlightedCard = null;
                 this.GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
-                 this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y - 15, this.transform.position.z);
+                this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y - 15, this.transform.position.z);
                 this.GetComponent<Canvas>().sortingOrder -= 100;
-            }   else
+            }
+            else
             {
                 highlightedCard = null;
                 this.GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
@@ -69,7 +71,7 @@ public class CardMouseInteraction : MonoBehaviour, IPointerEnterHandler, IPointe
                 this.GetComponent<Canvas>().sortingOrder -= 100;
             }
         }
-        
+
     }
 
     public void OnPointerClick(PointerEventData eventData)
@@ -112,7 +114,7 @@ public class CardMouseInteraction : MonoBehaviour, IPointerEnterHandler, IPointe
                 line = GameObject.FindGameObjectsWithTag("Line");
                 foreach (var item in line)
                 {
-                    Destroy(item.gameObject);
+                    item.gameObject.SetActive(false);
                 }
                 highlightEffect = CardManager.Instance.selectedCard.transform.GetChild(0).gameObject;
                 highlightEffect.SetActive(false);
@@ -130,7 +132,6 @@ public class CardMouseInteraction : MonoBehaviour, IPointerEnterHandler, IPointe
     void castCard()
     {
         lineController.drawLine = true;
-        Debug.Log(CardManager.Instance.selectedCard);
         CardManager.Instance.selectedCard.transform.parent = castingPlace.transform;
         CardManager.Instance.selectedCard.transform.position = castingPlace.transform.position;
         GameManager.Instance.isCardSelected = true;
@@ -146,6 +147,18 @@ public class CardMouseInteraction : MonoBehaviour, IPointerEnterHandler, IPointe
             {
                 Debug.Log("AB ENEMY ABBBB");
             }
+        }
+    }
+
+    public void OnDisable()
+    {
+        if (highlightedCard != null)
+        {
+            highlightedCard.GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
+            highlightedCard.transform.position = new Vector3(highlightedCard.transform.position.x, highlightedCard.transform.position.y - 100, highlightedCard.transform.position.z);
+            highlightedCard.GetComponent<Canvas>().sortingOrder -= 100;
+            highlightEffect = highlightedCard.transform.GetChild(0).gameObject;
+            highlightEffect.SetActive(false);
         }
     }
 }

@@ -5,7 +5,7 @@ using UnityEngine;
 
 public static class LanguageManager
 {
-    public static CardDatabaseStructure.Root getCardDatabaseWithLanguage()
+    public static CardDatabaseStructure.Root getCardDatabaseWithLanguage(bool is_upgraded)
     {
         string languageExtension = "";
         switch (GameManager.Instance.gameLanguage)
@@ -20,7 +20,16 @@ public static class LanguageManager
                 languageExtension = "en";
                 break;
         }
-        string cardDtabaseUrl = String.Format(Constants.URLConstants.cardDatabaseJsonBaseUrl, languageExtension);
+        String url = "";
+        if (is_upgraded)
+        {
+            url = Constants.URLConstants.upgradedCardDatabaseJsonBaseUrl;
+        }
+        else
+        {
+            url = Constants.URLConstants.cardDatabaseJsonBaseUrl;
+        }
+        string cardDtabaseUrl = String.Format(url, languageExtension);
 
         return JsonController.getCardJsonWithPath(cardDtabaseUrl);
     }

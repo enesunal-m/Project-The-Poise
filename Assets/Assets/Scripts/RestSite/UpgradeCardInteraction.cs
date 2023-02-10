@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -7,10 +8,23 @@ using UnityEngine.EventSystems;
 public class UpgradeCardInteraction : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
     CardUpgradeController cardUpgradeController;
+    List<CardDatabaseStructure.ICardInfoInterface> upgradedCardList;
+    CardDatabaseStructure.Root upgradedCardDatabaseJson;
+
     // Start is called before the first frame update
     void Start()
     {
         cardUpgradeController = GameObject.FindGameObjectWithTag("cardUpgradeController").GetComponent<CardUpgradeController>();
+
+        if (!File.Exists(Application.streamingAssetsPath + Constants.URLConstants.cardTempDatabaseJsonBaseUrl))
+        {
+            using (File.Create(Application.streamingAssetsPath + Constants.URLConstants.cardTempDatabaseJsonBaseUrl)) ;
+        }
+        else
+        {
+            upgradedCardDatabaseJson = LanguageManager.getCardDatabaseWithLanguage(true);
+            upgradedCardList = CardDatabase.initalizecardsList(upgradedCardDatabaseJson, true);
+        }
     }
 
     // Update is called once per frame
@@ -26,6 +40,8 @@ public class UpgradeCardInteraction : MonoBehaviour, IPointerEnterHandler, IPoin
 
         cardUpgradeController.selectedCard =
             GameManager.Instance.cardsList.Where(card => card.id == cardObject.cardId).First();
+        cardUpgradeController.upgraded_selectedCard =
+            upgradedCardList.Where(card => card.id == cardObject.cardId).First();
 
         cardUpgradeController.card.GetComponent<Canvas>().sortingOrder = 20;
         cardUpgradeController.card.GetComponent<RectTransform>().localScale = new Vector3(1.1f, 1.1f, 1);
@@ -38,9 +54,7 @@ public class UpgradeCardInteraction : MonoBehaviour, IPointerEnterHandler, IPoin
 
         CardDatabaseStructure.ICardInfoInterface upgradedCardInfo = cardUpgradeController.selectedCard;
 
-        upgradedCardInfo.name = upgradedCardInfo.name + "+";
-
-        upgradedCard.GetComponent<CardDisplay>().initializeCard(upgradedCardInfo);
+        upgradedCard.GetComponent<CardDisplay>().initializeCard(cardUpgradeController.upgraded_selectedCard);
 
         currentCard.transform.parent = cardUpgradeController.currentCardPlace;
         currentCard.transform.position = cardUpgradeController.currentCardPlace.position;
@@ -58,8 +72,6 @@ public class UpgradeCardInteraction : MonoBehaviour, IPointerEnterHandler, IPoin
     {
         this.GetComponent<RectTransform>().localScale = new Vector3(1.1f, 1.1f, 1);
         transform.position = new Vector3(this.transform.position.x, this.transform.position.y + 15, this.transform.position.z);
-
-        Debug.Log("pointer entered");
     }
 
     public void OnPointerExit(PointerEventData eventData)

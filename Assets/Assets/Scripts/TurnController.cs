@@ -29,13 +29,13 @@ public class TurnController : MonoBehaviour
         List<EnemyTier> enemyTierListElite = new List<EnemyTier>() { EnemyTier.Tier1, EnemyTier.Tier2 };
         List<EnemyTier> enemyTierListBoss = new List<EnemyTier>() { EnemyTier.Tier1 };
 
-        Dictionary<string, List<EnemyTier>> enemyTypeTierList = new Dictionary<string,List<EnemyTier>>() 
-        { 
-            { "Normal" , enemyTierListNormal }, 
+        Dictionary<string, List<EnemyTier>> enemyTypeTierList = new Dictionary<string, List<EnemyTier>>()
+        {
+            { "Normal" , enemyTierListNormal },
             { "Elite" , enemyTierListElite },
             { "Boss" , enemyTierListBoss }
         };
-        Dictionary<string, EnemyType> enemyTypeList = new Dictionary<string, EnemyType>() 
+        Dictionary<string, EnemyType> enemyTypeList = new Dictionary<string, EnemyType>()
         {
             { "Normal", EnemyType.Normal },
             { "Elite", EnemyType.Elite },
@@ -80,11 +80,11 @@ public class TurnController : MonoBehaviour
             GameObject[] lines = GameObject.FindGameObjectsWithTag("Line");
             foreach (var item in cards)
             {
-                Destroy(item.gameObject);
+                item.gameObject.SetActive(false);
             }
             foreach (var item in lines)
             {
-                Destroy(item.gameObject);
+                item.gameObject.SetActive(false);
             }
             GameManager.Instance.turnSide = decideTurnSide(GameManager.Instance.turnSide);
             if (GameManager.Instance.turnSide == Characters.Player)
@@ -134,7 +134,8 @@ public class TurnController : MonoBehaviour
             }
 
             // GameManager.Instance.playerController.applyStateEffects();
-        } else if(GameManager.Instance.turnSide == Characters.Enemy)
+        }
+        else if (GameManager.Instance.turnSide == Characters.Enemy)
         {
             GameManager.Instance.GetComponent<CardSpawner>().HandDiscarder();
             // TODO
@@ -173,7 +174,7 @@ public class TurnController : MonoBehaviour
 
         SceneRouter.GoToScene(SceneType.Map);
     }
-    
+
     public void changeLanguage()
     {
         if (GameManager.Instance.gameLanguage == Language.tr)
@@ -194,7 +195,8 @@ public class TurnController : MonoBehaviour
         if (currentSide == Characters.Player)
         {
             return Characters.Enemy;
-        }else
+        }
+        else
         {
             return Characters.Player;
         }

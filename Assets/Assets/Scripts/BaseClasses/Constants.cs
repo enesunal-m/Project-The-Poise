@@ -12,6 +12,7 @@ public static class Constants
     public static class URLConstants
     {
         public static string cardDatabaseJsonBaseUrl = @"/Database/CardDatabase_{0}.json";
+        public static string upgradedCardDatabaseJsonBaseUrl = @"/Database/Upgraded_CardDatabase_{0}.json";
         public static string cardTempDatabaseJsonBaseUrl = @"/Database/TempCardDatabase.json";
         public static string enemyDatabaseJsonBaseUrl = @"/Database/EnemyDatabase.json";
         public static string buffDebuffDatabaseJsonBaseUrl = @"/Database/BuffDebuffDatabase.json";
@@ -50,7 +51,7 @@ public static class Constants
     public static class CardConstants
     {
         public static int deckCardCount = 30;
-        public static Dictionary<string, int> relicIdList = new Dictionary<string, int>() { {"asclepius", 0 } };
+        public static Dictionary<string, int> relicIdList = new Dictionary<string, int>() { { "asclepius", 0 } };
     }
 
     public static class SceneConstants
@@ -61,7 +62,7 @@ public static class Constants
         public static int shopIndex = 3;
         public static int restSiteIndex = 4;
         public static int creditsIndex = 5;
-        public static Dictionary<SceneType, int> sceneIndexes = new Dictionary<SceneType, int>() 
+        public static Dictionary<SceneType, int> sceneIndexes = new Dictionary<SceneType, int>()
         {
             { SceneType.MainMenu, mainIndex },
             { SceneType.Map, mapIndex},
@@ -107,7 +108,7 @@ public static class Lists
         public static List<GameObject> tier4_BossEnemiesList = new List<GameObject>();
 
         // lists of all enemy tiers
-        public static Dictionary<EnemyTier, List<GameObject>> normalEnemiesList = new Dictionary<EnemyTier, List<GameObject>>() 
+        public static Dictionary<EnemyTier, List<GameObject>> normalEnemiesList = new Dictionary<EnemyTier, List<GameObject>>()
         {
             { EnemyTier.Tier1, tier1_NormalEnemiesList },
             { EnemyTier.Tier2, tier2_NormalEnemiesList },
@@ -131,7 +132,7 @@ public static class Lists
             { EnemyTier.Tier4, tier4_BossEnemiesList },
         };
 
-        public static Dictionary<EnemyType, Dictionary<EnemyTier, List<GameObject>>> enemyDictionary = 
+        public static Dictionary<EnemyType, Dictionary<EnemyTier, List<GameObject>>> enemyDictionary =
             new Dictionary<EnemyType, Dictionary<EnemyTier, List<GameObject>>>()
             {
                 { EnemyType.Normal, normalEnemiesList },

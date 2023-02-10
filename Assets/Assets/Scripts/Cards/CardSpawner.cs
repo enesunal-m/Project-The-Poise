@@ -12,7 +12,7 @@ public class CardSpawner : MonoBehaviour
     void Start()
     {
         hand = GameObject.FindGameObjectWithTag("Hand");
-        
+
     }
 
     // Update is called once per frame
@@ -41,7 +41,7 @@ public class CardSpawner : MonoBehaviour
         for (int i = 0; i < cardSpawnAmount - cardAmountPenalty; i++)
         {
             int randomIndex = new System.Random().Next(0, GameManager.Instance.GetComponent<DeckController>().deckCardInfoList.Count);
-            var cardSpawned = Instantiate(card);
+            var cardSpawned = ObjectPool.SharedInstance.GetPooledObject();
 
 
             cardSpawned.GetComponent<CardDisplay>().initializeCard(GameManager.Instance.GetComponent<DeckController>().deckCardInfoList[randomIndex]);
@@ -52,6 +52,7 @@ public class CardSpawner : MonoBehaviour
             cardSpawned.transform.parent = hand.gameObject.transform;
             cardSpawned.GetComponent<CardDisplay>().spawnIndex = i;
             GameManager.Instance.GetComponent<DeckController>().UpdateCardCount(GameManager.Instance.GetComponent<DeckController>().deckCardInfoList.Count, CardManager.Instance.getAllCards().Count, GameManager.Instance.GetComponent<DeckController>().discardedCardInfoList.Count);
+            cardSpawned.gameObject.SetActive(true);
             yield return new WaitForSeconds(.15f);
         }
 
@@ -66,9 +67,10 @@ public class CardSpawner : MonoBehaviour
 
     public void SpawnCardWithId(string id)
     {
-        var cardSpawned = Instantiate(card);
+        var cardSpawned = ObjectPool.SharedInstance.GetPooledObject();
         Debug.Log(GameManager.Instance.cardsList.Count);
         cardSpawned.GetComponent<CardDisplay>().initializeCard(GameManager.Instance.cardsList.Where(card => card.id == id).First());
         cardSpawned.transform.parent = hand.gameObject.transform;
+        cardSpawned.gameObject.SetActive(true);
     }
 }
