@@ -4,19 +4,22 @@ using UnityEngine;
 
 public class TooltipSystem : MonoBehaviour
 {
-    private static TooltipSystem current;
+    public static TooltipSystem current;
     public Tooltip tooltip;
-    void Awake()
+    [SerializeField] Transform castingPlace;
+    public void Awake()
     {
         current = this;
     }
 
-    public static void Show()
+    public void Show(string content, string header = "")
     {
-        current.tooltip.gameObject.SetActive(true);
+        tooltip.SetText(content, header);
+        tooltip.transform.parent.gameObject.SetActive(true);
+        tooltip.transform.position = castingPlace.position + new Vector3(260,120,0);
     }
-    public static void Hide()
+    public void Hide()
     {
-        current.tooltip.gameObject.SetActive(false);
+        tooltip.transform.parent.gameObject.SetActive(false);
     }
 }

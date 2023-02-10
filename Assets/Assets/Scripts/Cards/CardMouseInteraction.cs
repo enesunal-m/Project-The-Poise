@@ -76,7 +76,7 @@ public class CardMouseInteraction : MonoBehaviour, IPointerEnterHandler, IPointe
 
     public void OnPointerClick(PointerEventData eventData)
     {
-
+        
         if (!cardDisplay.isSelectionCard && !GameManager.Instance.areCardsSpawning)
         {
             if (GameManager.Instance.isCardSelected)
@@ -88,6 +88,9 @@ public class CardMouseInteraction : MonoBehaviour, IPointerEnterHandler, IPointe
                 CardManager.Instance.selectedCard = eventData.pointerCurrentRaycast.gameObject.transform.parent.gameObject;
                 highlightEffect = CardManager.Instance.selectedCard.transform.GetChild(0).gameObject;
                 highlightEffect.SetActive(true);
+                
+                var description = CardManager.Instance.selectedCard.GetComponent<CardDisplay>().description.text.ToString();
+                TooltipSystem.current.Show(description, "Description");
 
                 GameManager.Instance.isSelectedCardUsed = false;
                 castCard();
@@ -131,7 +134,7 @@ public class CardMouseInteraction : MonoBehaviour, IPointerEnterHandler, IPointe
                 CardManager.Instance.selectedCard = null;
                 GameManager.Instance.isCardSelected = false;
                 GameManager.Instance.isAnyCardSelected = false;
-
+                TooltipSystem.current.Hide();
             }
         }
     }

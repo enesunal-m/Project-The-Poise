@@ -88,6 +88,7 @@ public class CardManager : MonoBehaviour
         Destroy(selectedCard.gameObject, destroyEffect.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).length - 0.475f);
         Invoke("WaitForAnimationEnds", destroyEffect.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).length - 0.475f);
         PlayerController.Instance.playerMana -= int.Parse(selectedCard.GetComponent<CardDisplay>().manaCost.text.ToString());
+        TooltipSystem.current.Hide();
     }
     private void WaitForAnimationEnds()
     {
