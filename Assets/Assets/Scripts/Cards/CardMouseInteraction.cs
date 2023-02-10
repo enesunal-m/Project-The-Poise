@@ -109,7 +109,7 @@ public class CardMouseInteraction : MonoBehaviour, IPointerEnterHandler, IPointe
     {
         if (GameManager.Instance.isCardSelected && !cardDisplay.isSelectionCard)
         {
-            if (GameManager.Instance.isAnyCardSelected && Input.GetMouseButtonDown(0) && !GameManager.Instance.isSelectedCardUsed)
+            if (GameManager.Instance.isAnyCardSelected && CardManager.Instance.selectedCard.GetComponent<CardDisplay>().cardTarget == CardTarget.ClosestEnemy &&Input.GetMouseButtonDown(0) && !GameManager.Instance.isSelectedCardUsed)
             {
                 Enemy selectedEnemy = GameManager.Instance.GetComponent<FightSceneAligner>().FindClosestEnemy().GetComponent<Enemy>();
                 CardManager.Instance.selectedEnemies.Add(selectedEnemy);
